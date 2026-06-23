@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#7760a6" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Meu Lipedema" />
+  <meta name="format-detection" content="telephone=no" />
+  <title>Meu Lipedema</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icons/icon-180.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="enhancements.css" />
+  <link rel="stylesheet" href="exercise-actions.css" />
+  <link rel="stylesheet" href="mobile.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">✦</span><span>Meu <strong>Lipedema</strong></span></div>
+      <nav class="nav" aria-label="Navegação principal">
+        <button class="nav-link active" data-tab="inicio"><span>⌂</span> Início</button>
+        <button class="nav-link" data-tab="treino"><span>◷</span> Treino de hoje</button>
+        <button class="nav-link" data-tab="meus-treinos"><span>☷</span> Meus treinos</button>
+        <button class="nav-link" data-tab="medidas"><span>⌗</span> Medidas</button>
+        <button class="nav-link" data-tab="peso"><span>♡</span> Peso e sintomas</button>
+        <button class="nav-link" data-tab="historico"><span>▤</span> Histórico</button>
+      </nav>
+      <div class="sidebar-tip"><span>🌿</span><p>Um passo de cada vez.<br><strong>Seu cuidado importa.</strong></p></div>
+    </aside>
+
+    <main class="content">
+      <section id="inicio" class="page active">
+        <div class="page-heading"><div><p class="eyebrow" id="today-label"></p><h1>Olá, Marieli <span>♡</span></h1><p class="subtitle">Seu acompanhamento, no seu ritmo.</p></div><button class="soft-button" data-go="peso">+ Registrar hoje</button></div>
+        <div class="weekly-card">
+          <div><p class="eyebrow">RESUMO DA SEMANA</p><h2>Como você está se sentindo?</h2><p>Registre seu progresso para enxergar pequenas conquistas.</p></div>
+          <div class="week-stats"><div><strong id="stat-workouts">0</strong><span>treinos</span></div><div><strong id="stat-weight">—</strong><span>último peso</span></div><div><strong id="stat-pain">—</strong><span>dor média</span></div></div>
+        </div>
+        <div class="dashboard-grid">
+          <article class="card today-card"><div class="card-title"><div><span class="icon-bubble">◷</span><h3>Treino de hoje</h3></div><button class="text-button" data-go="treino">Ver treino</button></div><div id="home-workout" class="empty-state">Nenhum exercício adicionado para hoje.<button class="inline-action" data-go="treino">Montar treino</button></div></article>
+          <article class="card checkin-card"><div class="card-title"><div><span class="icon-bubble pink">♡</span><h3>Seu check-in</h3></div></div><div id="home-checkin" class="empty-state">Ainda não há sintomas registrados hoje.<button class="inline-action" data-go="peso">Fazer check-in</button></div></article>
+        </div>
+      </section>
+
+      <section id="treino" class="page">
+        <div class="page-heading"><div><p class="eyebrow">SEU MOMENTO DE MOVIMENTO</p><h1>Treino de hoje</h1><p class="subtitle">Escolha a rotina que faz sentido para o seu dia.</p></div></div>
+        <div id="today-routine-picker" class="routine-grid"></div>
+        <div id="active-workout" class="active-workout hidden"><div class="workout-heading"><button class="back-button" id="change-routine">← Trocar treino</button><div><p class="eyebrow" id="active-routine-letter"></p><h2 id="active-routine-name"></h2></div></div><div id="exercise-list" class="exercise-list"></div><div class="save-row"><button class="primary-button" id="finish-workout">✓ Concluir treino</button><span id="workout-status"></span></div></div>
+      </section>
+
+      <section id="meus-treinos" class="page">
+        <div class="page-heading"><div><p class="eyebrow">SUAS ROTINAS</p><h1>Meus treinos</h1><p class="subtitle">Monte e ajuste seus treinos do seu jeito.</p></div></div>
+        <div id="routine-picker" class="routine-grid"></div>
+        <div id="routine-editor" class="active-workout hidden"><div class="workout-heading"><button class="back-button" id="back-to-routines">← Meus treinos</button><div><p class="eyebrow" id="editor-routine-letter"></p><h2 id="editor-routine-name"></h2></div><button class="soft-button" id="add-exercise">+ Novo exercício</button></div><div id="routine-exercise-list" class="exercise-list"></div></div>
+      </section>
+
+      <section id="medidas" class="page">
+        <div class="page-heading"><div><p class="eyebrow">ACOMPANHE SEM PRESSA</p><h1>Medidas</h1><p class="subtitle">Comparar não é o objetivo — acompanhar-se é.</p></div></div>
+        <form id="measurements-form" class="form-card">
+          <div class="form-grid measurements-grid">
+            <label>Data<input type="date" name="date" required /></label><label>Peso (kg)<input type="number" name="weight" min="0" step="0.1" placeholder="Ex.: 72,5" /></label>
+            <label>Cintura (cm)<input type="number" name="waist" min="0" step="0.1" /></label><label>Abdômen (cm)<input type="number" name="abdomen" min="0" step="0.1" /></label>
+            <label>Quadril (cm)<input type="number" name="hip" min="0" step="0.1" /></label><label>Coxa direita (cm)<input type="number" name="rightThigh" min="0" step="0.1" /></label>
+            <label>Coxa esquerda (cm)<input type="number" name="leftThigh" min="0" step="0.1" /></label><label>Panturrilha direita (cm)<input type="number" name="rightCalf" min="0" step="0.1" /></label>
+            <label>Panturrilha esquerda (cm)<input type="number" name="leftCalf" min="0" step="0.1" /></label><label>Braço direito (cm)<input type="number" name="rightArm" min="0" step="0.1" /></label>
+            <label>Braço esquerdo (cm)<input type="number" name="leftArm" min="0" step="0.1" /></label>
+          </div><button class="primary-button" type="submit">Salvar medidas</button>
+        </form>
+      </section>
+
+      <section id="peso" class="page">
+        <div class="page-heading"><div><p class="eyebrow">SE ESCUTE COM GENTILEZA</p><h1>Peso e sintomas</h1><p class="subtitle">Um check-in rápido para entender seu corpo.</p></div></div>
+        <form id="symptoms-form" class="form-card checkin-form">
+          <div class="form-grid"><label>Data<input type="date" name="date" required /></label><label>Peso de hoje (kg)<input type="number" name="weight" min="0" step="0.1" placeholder="Opcional" /></label></div>
+          <div class="sliders"><div class="slider-field"><div><label for="pain">Dor</label><span id="pain-value">0</span></div><input id="pain" name="pain" type="range" min="0" max="10" value="0" /><small>0 sem dor &nbsp; · &nbsp; 10 muito intensa</small></div><div class="slider-field"><div><label for="swelling">Inchaço</label><span id="swelling-value">0</span></div><input id="swelling" name="swelling" type="range" min="0" max="10" value="0" /><small>0 sem inchaço &nbsp; · &nbsp; 10 muito intenso</small></div></div>
+          <div class="choice-row"><span>Sensação de peso nas pernas</span><label class="toggle"><input type="checkbox" name="legHeaviness" /><span></span></label></div><div class="choice-row"><span>Usei meia compressiva hoje</span><label class="toggle"><input type="checkbox" name="compression" /><span></span></label></div>
+          <label>Observações<textarea name="notes" placeholder="Como foi seu dia? Algo que ajudou ou incomodou?"></textarea></label><button class="primary-button" type="submit">Salvar check-in</button>
+        </form>
+      </section>
+
+      <section id="historico" class="page">
+        <div class="page-heading"><div><p class="eyebrow">SEUS REGISTROS</p><h1>Histórico</h1><p class="subtitle">Tudo o que você escolheu acompanhar.</p></div></div>
+        <div class="history-tabs"><button class="history-filter active" data-filter="all">Tudo</button><button class="history-filter" data-filter="workout">Treinos</button><button class="history-filter" data-filter="measurement">Medidas</button><button class="history-filter" data-filter="symptom">Sintomas</button></div>
+        <div id="history-list" class="history-list"></div>
+      </section>
+    </main>
+  </div>
+  <template id="exercise-template"><article class="exercise-card"><div class="exercise-top"><strong class="exercise-number"></strong><div class="exercise-actions"><button class="edit-exercise" type="button">Editar</button><button class="save-exercise" type="button">Salvar exercício</button><button class="remove-exercise" type="button">Excluir</button></div></div><div class="form-grid exercise-grid"><label>Nome do exercício<input name="exercise" placeholder="Ex.: Leg press" required /></label><label>Aparelho<input name="machine" placeholder="Ex.: Leg press 45°" /></label><label>Séries<input name="sets" type="number" min="0" placeholder="3" /></label><label>Repetições<input name="reps" type="number" min="0" placeholder="12" /></label><label>Carga inicial (kg)<input name="load" type="number" min="0" step="0.5" placeholder="20" /></label><label>Vídeo demonstrativo<input name="video" type="url" placeholder="https://..." /></label></div></article></template>
+  <script src="app.js"></script>
+  <script src="pwa.js"></script>
+</body>
+</html>
